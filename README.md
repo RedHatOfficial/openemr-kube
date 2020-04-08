@@ -5,13 +5,13 @@
 ## Deployment in OpenShift (v3 or v4)
 
 ```
-oc create -f sitevolume-persistentvolumeclaim.yaml,databasevolume-persistentvolumeclaim.yaml,logvolume01-persistentvolumeclaim.yaml,websitevolume-persistentvolumeclaim.yaml,sslvolume-persistentvolumeclaim.yaml,mysql-deployment.yaml,mysql-service.yaml,openemr-deployment.yaml,openemr-service.yaml
+oc apply -f artifacts/
 ```
 
 ## Deployment in vanilla kubernetes
 
 ```
-kubectl apply -f databasevolume-persistentvolumeclaim.yaml,logvolume01-persistentvolumeclaim.yaml,mysql-deployment.yaml,mysql-service.yaml,openemr-deployment.yaml,openemr-service.yaml,sitevolume-persistentvolumeclaim.yaml
+kubectl apply -f artifacts/
 ```
 
 ### Testing Cluster
