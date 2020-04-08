@@ -57,6 +57,9 @@ spec:
         - mountPath: /etc/ssl/certs
           name: openemr-certs-1
           readOnly: true
+        - mountPath: /etc/apache2/conf.d/openemr.conf
+          name: volume-02wck
+          subPath: openemr.conf
       restartPolicy: Always
       serviceAccountName: ""
       volumes:
@@ -70,5 +73,12 @@ spec:
         secret:
           defaultMode: 420
           secretName: openemr-certs
+      - name: volume-02wck
+        configMap:
+          name: openemr-apache-config
+          defaultMode: 420
+          items:
+            - key: openemr.conf
+              path: openemr.conf
 status: {}
 
