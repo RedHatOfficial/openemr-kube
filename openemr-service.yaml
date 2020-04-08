@@ -4,6 +4,7 @@ metadata:
   annotations:
     kompose.cmd: kompose convert
     kompose.version: 1.7.0 (HEAD)
+    service.alpha.openshift.io/serving-cert-secret-name: openemr-certs
   creationTimestamp: null
   labels:
     io.kompose.service: openemr
