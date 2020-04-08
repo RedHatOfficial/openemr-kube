@@ -60,6 +60,9 @@ spec:
         - mountPath: /etc/apache2/conf.d/openemr.conf
           name: volume-02wck
           subPath: openemr.conf
+        - mountPath: /etc/apache2/conf.d/ssl.conf
+          name: volume-apache-ssl-conf
+          subPath: ssl.conf
       restartPolicy: Always
       serviceAccountName: ""
       volumes:
@@ -80,5 +83,9 @@ spec:
           items:
             - key: openemr.conf
               path: openemr.conf
+      - name: volume-apache-ssl-conf
+        configMap:
+          name: apache-ssl-conf
+          defaultMode: 420
 status: {}
 

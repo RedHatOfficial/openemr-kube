@@ -1,0 +1,168 @@
+apiVersion: v1
+data:
+  ssl.conf: "#\n# This is the Apache server configuration file providing SSL support.\n#
+    It contains the configuration directives to instruct the server how to\n# serve
+    pages over an https connection. For detailed information about these \n# directives
+    see <URL:http://httpd.apache.org/docs/2.4/mod/mod_ssl.html>\n# \n# Do NOT simply
+    read the instructions in here without understanding\n# what they do.  They're
+    here only as hints or reminders.  If you are unsure\n# consult the online docs.
+    You have been warned.  \n#\n# Required modules: mod_log_config, mod_setenvif,
+    mod_ssl,\n#          socache_shmcb_module (for default value of SSLSessionCache)\nLoadModule
+    ssl_module modules/mod_ssl.so\nLoadModule socache_shmcb_module modules/mod_socache_shmcb.so\n\n#\n#
+    Pseudo Random Number Generator (PRNG):\n# Configure one or more sources to seed
+    the PRNG of the SSL library.\n# The seed data should be of good random quality.\n#
+    WARNING! On some platforms /dev/random blocks if not enough entropy\n# is available.
+    This means you then cannot use the /dev/random device\n# because it would lead
+    to very long connection times (as long as\n# it requires to make more entropy
+    available). But usually those\n# platforms additionally provide a /dev/urandom
+    device which doesn't\n# block. So, if available, use this one instead. Read the
+    mod_ssl User\n# Manual for more details.\n#\n#SSLRandomSeed startup file:/dev/random
+    \ 512\nSSLRandomSeed startup file:/dev/urandom 512\nSSLRandomSeed connect builtin\n#SSLRandomSeed
+    connect file:/dev/random  512\n#SSLRandomSeed connect file:/dev/urandom 512\n\n\n#\n#
+    When we also provide SSL we have to listen to the \n# standard HTTP port (see
+    above) and to the HTTPS port\n#\nListen 443\n\n##\n##  SSL Global Context\n##\n##
+    \ All SSL configuration in this context applies both to\n##  the main server and
+    all SSL-enabled virtual hosts.\n##\n\n#   SSL Cipher Suite:\n#   List the ciphers
+    that the client is permitted to negotiate,\n#   and that httpd will negotiate
+    as the client of a proxied server.\n#   See the OpenSSL documentation for a complete
+    list of ciphers, and\n#   ensure these follow appropriate best practices for this
+    deployment.\n#   httpd 2.2.30, 2.4.13 and later force-disable aNULL, eNULL and
+    EXP ciphers,\n#   while OpenSSL disabled these by default in 0.9.8zf/1.0.0r/1.0.1m/1.0.2a.\nSSLCipherSuite
+    HIGH:MEDIUM:!MD5:!RC4:!3DES:!ADH\nSSLProxyCipherSuite HIGH:MEDIUM:!MD5:!RC4:!3DES:!ADH\n\n#
+    \ By the end of 2016, only TLSv1.2 ciphers should remain in use.\n#  Older ciphers
+    should be disallowed as soon as possible, while the\n#  kRSA ciphers do not offer
+    forward secrecy.  These changes inhibit\n#  older clients (such as IE6 SP2 or
+    IE8 on Windows XP, or other legacy\n#  non-browser tooling) from successfully
+    connecting.  \n#\n#  To restrict mod_ssl to use only TLSv1.2 ciphers, and disable\n#
+    \ those protocols which do not support forward secrecy, replace\n#  the SSLCipherSuite
+    and SSLProxyCipherSuite directives above with\n#  the following two directives,
+    as soon as practical.\n# SSLCipherSuite HIGH:MEDIUM:!SSLv3:!kRSA\n# SSLProxyCipherSuite
+    HIGH:MEDIUM:!SSLv3:!kRSA\n\n#   User agents such as web browsers are not configured
+    for the user's\n#   own preference of either security or performance, therefore
+    this\n#   must be the prerogative of the web server administrator who manages\n#
+    \  cpu load versus confidentiality, so enforce the server's cipher order.\nSSLHonorCipherOrder
+    on \n\n#   SSL Protocol support:\n#   List the protocol versions which clients
+    are allowed to connect with.\n#   Disable SSLv3 by default (cf. RFC 7525 3.1.1).
+    \ TLSv1 (1.0) should be\n#   disabled as quickly as practical.  By the end of
+    2016, only the TLSv1.2\n#   protocol or later should remain in use.\nSSLProtocol
+    all -SSLv3\nSSLProxyProtocol all -SSLv3\n\n#   Pass Phrase Dialog:\n#   Configure
+    the pass phrase gathering process.\n#   The filtering dialog program (`builtin'
+    is an internal\n#   terminal dialog) has to provide the pass phrase on stdout.\nSSLPassPhraseDialog
+    \ builtin\n\n#   Inter-Process Session Cache:\n#   Configure the SSL Session Cache:
+    First the mechanism \n#   to use and second the expiring timeout (in seconds).\n#SSLSessionCache
+    \        \"dbm:/run/apache2/ssl_scache\"\nSSLSessionCache        \"shmcb:/var/cache/mod_ssl/scache(512000)\"\nSSLSessionCacheTimeout
+    \ 300\n\n#   OCSP Stapling (requires OpenSSL 0.9.8h or later)\n#\n#   This feature
+    is disabled by default and requires at least\n#   the two directives SSLUseStapling
+    and SSLStaplingCache.\n#   Refer to the documentation on OCSP Stapling in the
+    SSL/TLS\n#   How-To for more information.\n#\n#   Enable stapling for all SSL-enabled
+    servers:\n#SSLUseStapling On\n\n#   Define a relatively small cache for OCSP Stapling
+    using\n#   the same mechanism that is used for the SSL session cache\n#   above.
+    \ If stapling is used with more than a few certificates,\n#   the size may need
+    to be increased.  (AH01929 will be logged.)\n#SSLStaplingCache \"shmcb:/run/apache2/ssl_stapling(32768)\"\n\n#
+    \  Seconds before valid OCSP responses are expired from the cache\n#SSLStaplingStandardCacheTimeout
+    3600\n\n#   Seconds before invalid OCSP responses are expired from the cache\n#SSLStaplingErrorCacheTimeout
+    600\n\n##\n## SSL Virtual Host Context\n##\n\n<VirtualHost _default_:443>\n\n#
+    \  General setup for the virtual host\nDocumentRoot \"/var/www/localhost/htdocs\"\nServerName
+    www.example.com:443\nServerAdmin you@example.com\nErrorLog logs/ssl_error.log\nTransferLog
+    logs/ssl_access.log\n\n#   SSL Engine Switch:\n#   Enable/Disable SSL for this
+    virtual host.\nSSLEngine on\n\n#   Server Certificate:\n#   Point SSLCertificateFile
+    at a PEM encoded certificate.  If\n#   the certificate is encrypted, then you
+    will be prompted for a\n#   pass phrase.  Note that a kill -HUP will prompt again.
+    \ Keep\n#   in mind that if you have both an RSA and a DSA certificate you\n#
+    \  can configure both in parallel (to also allow the use of DSA\n#   ciphers,
+    etc.)\n#   Some ECC cipher suites (http://www.ietf.org/rfc/rfc4492.txt)\n#   require
+    an ECC certificate which can also be configured in\n#   parallel.\nSSLCertificateFile
+    /etc/ssl/certs/tls.crt\n#SSLCertificateFile /etc/ssl/apache2/server-dsa.pem\n#SSLCertificateFile
+    /etc/ssl/apache2/server-ecc.pem\n\n#   Server Private Key:\n#   If the key is
+    not combined with the certificate, use this\n#   directive to point at the key
+    file.  Keep in mind that if\n#   you've both a RSA and a DSA private key you can
+    configure\n#   both in parallel (to also allow the use of DSA ciphers, etc.)\n#
+    \  ECC keys, when in use, can also be configured in parallel\nSSLCertificateKeyFile
+    /etc/ssl/certs/tls.key\n#SSLCertificateKeyFile /etc/ssl/apache2/server-dsa.key\n#SSLCertificateKeyFile
+    /etc/ssl/apache2/server-ecc.key\n\n#   Server Certificate Chain:\n#   Point SSLCertificateChainFile
+    at a file containing the\n#   concatenation of PEM encoded CA certificates which
+    form the\n#   certificate chain for the server certificate. Alternatively\n#   the
+    referenced file can be the same as SSLCertificateFile\n#   when the CA certificates
+    are directly appended to the server\n#   certificate for convenience.\n#SSLCertificateChainFile
+    /etc/ssl/apache2/server-ca.pem\n\n#   Certificate Authority (CA):\n#   Set the
+    CA certificate verification path where to find CA\n#   certificates for client
+    authentication or alternatively one\n#   huge file containing all of them (file
+    must be PEM encoded)\n#   Note: Inside SSLCACertificatePath you need hash symlinks\n#
+    \        to point to the certificate files. Use the provided\n#         Makefile
+    to update the hash symlinks after changes.\n#SSLCACertificatePath /etc/ssl/apache2/ssl.crt\n#SSLCACertificateFile
+    /etc/ssl/apache2/ssl.crt/ca-bundle.pem\n\n#   Certificate Revocation Lists (CRL):\n#
+    \  Set the CA revocation path where to find CA CRLs for client\n#   authentication
+    or alternatively one huge file containing all\n#   of them (file must be PEM encoded).\n#
+    \  The CRL checking mode needs to be configured explicitly\n#   through SSLCARevocationCheck
+    (defaults to \"none\" otherwise).\n#   Note: Inside SSLCARevocationPath you need
+    hash symlinks\n#         to point to the certificate files. Use the provided\n#
+    \        Makefile to update the hash symlinks after changes.\n#SSLCARevocationPath
+    /etc/ssl/apache2/ssl.crl\n#SSLCARevocationFile /etc/ssl/apache2/ssl.crl/ca-bundle.crl\n#SSLCARevocationCheck
+    chain\n\n#   Client Authentication (Type):\n#   Client certificate verification
+    type and depth.  Types are\n#   none, optional, require and optional_no_ca.  Depth
+    is a\n#   number which specifies how deeply to verify the certificate\n#   issuer
+    chain before deciding the certificate is not valid.\n#SSLVerifyClient require\n#SSLVerifyDepth
+    \ 10\n\n#   TLS-SRP mutual authentication:\n#   Enable TLS-SRP and set the path
+    to the OpenSSL SRP verifier\n#   file (containing login information for SRP user
+    accounts). \n#   Requires OpenSSL 1.0.1 or newer. See the mod_ssl FAQ for\n#   detailed
+    instructions on creating this file. Example:\n#   \"openssl srp -srpvfile /etc/apache2/passwd.srpv
+    -add username\"\n#SSLSRPVerifierFile \"/etc/apache2/passwd.srpv\"\n\n#   Access
+    Control:\n#   With SSLRequire you can do per-directory access control based\n#
+    \  on arbitrary complex boolean expressions containing server\n#   variable checks
+    and other lookup directives.  The syntax is a\n#   mixture between C and Perl.
+    \ See the mod_ssl documentation\n#   for more details.\n#<Location />\n#SSLRequire
+    (    %{SSL_CIPHER} !~ m/^(EXP|NULL)/ \\\n#            and %{SSL_CLIENT_S_DN_O}
+    eq \"Snake Oil, Ltd.\" \\\n#            and %{SSL_CLIENT_S_DN_OU} in {\"Staff\",
+    \"CA\", \"Dev\"} \\\n#            and %{TIME_WDAY} >= 1 and %{TIME_WDAY} <= 5
+    \\\n#            and %{TIME_HOUR} >= 8 and %{TIME_HOUR} <= 20       ) \\\n#           or
+    %{REMOTE_ADDR} =~ m/^192\\.76\\.162\\.[0-9]+$/\n#</Location>\n\n#   SSL Engine
+    Options:\n#   Set various options for the SSL engine.\n#   o FakeBasicAuth:\n#
+    \    Translate the client X.509 into a Basic Authorisation.  This means that\n#
+    \    the standard Auth/DBMAuth methods can be used for access control.  The\n#
+    \    user name is the `one line' version of the client's X.509 certificate.\n#
+    \    Note that no password is obtained from the user. Every entry in the user\n#
+    \    file needs this password: `xxj31ZMTZzkVA'.\n#   o ExportCertData:\n#     This
+    exports two additional environment variables: SSL_CLIENT_CERT and\n#     SSL_SERVER_CERT.
+    These contain the PEM-encoded certificates of the\n#     server (always existing)
+    and the client (only existing when client\n#     authentication is used). This
+    can be used to import the certificates\n#     into CGI scripts.\n#   o StdEnvVars:\n#
+    \    This exports the standard SSL/TLS related `SSL_*' environment variables.\n#
+    \    Per default this exportation is switched off for performance reasons,\n#
+    \    because the extraction step is an expensive operation and is usually\n#     useless
+    for serving static content. So one usually enables the\n#     exportation for
+    CGI and SSI requests only.\n#   o StrictRequire:\n#     This denies access when
+    \"SSLRequireSSL\" or \"SSLRequire\" applied even\n#     under a \"Satisfy any\"
+    situation, i.e. when it applies access is denied\n#     and no other module can
+    change it.\n#   o OptRenegotiate:\n#     This enables optimized SSL connection
+    renegotiation handling when SSL\n#     directives are used in per-directory context.
+    \n#SSLOptions +FakeBasicAuth +ExportCertData +StrictRequire\n<FilesMatch \"\\.(cgi|shtml|phtml|php)$\">\n
+    \   SSLOptions +StdEnvVars\n</FilesMatch>\n<Directory \"/var/www/localhost/cgi-bin\">\n
+    \   SSLOptions +StdEnvVars\n</Directory>\n\n#   SSL Protocol Adjustments:\n#   The
+    safe and default but still SSL/TLS standard compliant shutdown\n#   approach is
+    that mod_ssl sends the close notify alert but doesn't wait for\n#   the close
+    notify alert from client. When you need a different shutdown\n#   approach you
+    can use one of the following variables:\n#   o ssl-unclean-shutdown:\n#     This
+    forces an unclean shutdown when the connection is closed, i.e. no\n#     SSL close
+    notify alert is sent or allowed to be received.  This violates\n#     the SSL/TLS
+    standard but is needed for some brain-dead browsers. Use\n#     this when you
+    receive I/O errors because of the standard approach where\n#     mod_ssl sends
+    the close notify alert.\n#   o ssl-accurate-shutdown:\n#     This forces an accurate
+    shutdown when the connection is closed, i.e. a\n#     SSL close notify alert is
+    send and mod_ssl waits for the close notify\n#     alert of the client. This is
+    100% SSL/TLS standard compliant, but in\n#     practice often causes hanging connections
+    with brain-dead browsers. Use\n#     this only for browsers where you know that
+    their SSL implementation\n#     works correctly. \n#   Notice: Most problems of
+    broken clients are also related to the HTTP\n#   keep-alive facility, so you usually
+    additionally want to disable\n#   keep-alive for those clients, too. Use variable
+    \"nokeepalive\" for this.\n#   Similarly, one has to force some clients to use
+    HTTP/1.0 to workaround\n#   their broken HTTP/1.1 implementation. Use variables
+    \"downgrade-1.0\" and\n#   \"force-response-1.0\" for this.\nBrowserMatch \"MSIE
+    [2-5]\" \\\n         nokeepalive ssl-unclean-shutdown \\\n         downgrade-1.0
+    force-response-1.0\n\n#   Per-Server Logging:\n#   The home of a custom SSL log
+    file. Use this when you want a\n#   compact non-error SSL logfile on a virtual
+    host basis.\nCustomLog logs/ssl_request.log \\\n          \"%t %h %{SSL_PROTOCOL}x
+    %{SSL_CIPHER}x \\\"%r\\\" %b\"\n\n</VirtualHost>                                  \n"
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  name: apache-ssl-conf
