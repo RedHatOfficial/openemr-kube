@@ -15,3 +15,9 @@ kubectl apply -f databasevolume-persistentvolumeclaim.yaml,logvolume01-persisten
 ### Quay organization
 
 https://quay.io/organization/openemr
+
+### Testing Cluster
+A public OpenShift 4.3 cluster was created to facilitate testing:
+https://console-openshift-console.apps.cluster1.naps-oct.redhatgov.io
+
+Contact @isimluk for access.
