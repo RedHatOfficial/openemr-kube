@@ -26,7 +26,7 @@ RUN dnf install -y @php php-mysqlnd php-soap php-gd httpd mod_ssl && dnf clean a
 COPY --from=builder /php.ini /etc/php7/php.ini
 COPY --from=builder /openemr /var/www/localhost/htdocs/openemr
 
-COPY openemr.conf /etc/httpd/conf.d/ssl.conf
+COPY openemr.conf /etc/httpd/conf.d/openemr.conf
 COPY ssl.conf /etc/httpd/conf.d/ssl.conf
 
 # left-over from upstream, do we really need this?
