@@ -27,13 +27,30 @@ spec:
       containers:
       - env:
         - name: MYSQL_HOST
-          value: "mysql"
-        - name: MYSQL_PASS
-          value: "openemr"
-        - name: MYSQL_ROOT_PASS
-          value: "root"
+          valueFrom:
+            secretKeyRef:
+              name: mysql
+              key: host
+        - name: MYSQL_DATABASE
+          valueFrom:
+            secretKeyRef:
+              name: mysql
+              key: name
         - name: MYSQL_USER
-          value: "openemr"
+          valueFrom:
+            secretKeyRef:
+              name: mysql
+              key: username
+        - name: MYSQL_PASS
+          valueFrom:
+            secretKeyRef:
+              name: mysql
+              key: password
+        - name: MYSQL_ROOT_PASS
+          valueFrom:
+            secretKeyRef:
+              name: mysql
+              key: root_password
         - name: OE_PASS
           value: "pass"
         - name: OE_USER

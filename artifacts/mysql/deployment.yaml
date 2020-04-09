@@ -23,8 +23,26 @@ spec:
         - mysqld
         - --character-set-server=utf8
         env:
+        - name: MYSQL_DATABASE
+          valueFrom:
+            secretKeyRef:
+              name: mysql
+              key: name
+        - name: MYSQL_USER
+          valueFrom:
+            secretKeyRef:
+              name: mysql
+              key: username
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql
+              key: password
         - name: MYSQL_ROOT_PASSWORD
-          value: root
+          valueFrom:
+            secretKeyRef:
+              name: mysql
+              key: root_password
         image: mariadb:10.4
         name: mysql
         resources: {}
@@ -36,4 +54,3 @@ spec:
       - name: databasevolume
         persistentVolumeClaim:
           claimName: databasevolume
-status: {}
