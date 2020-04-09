@@ -3,6 +3,6 @@ This is rewrite of original [upstream image](https://github.com/openemr/openemr-
 Notable differences:
  - Based on UBI
  - Using multi-staged build (and hence results in smaller image size)
- - Without reddis (needs to be spun-up separately)
+ - Without redis (needs to be spun-up separately)
  - without cron
  - without bundled ssl certificate
