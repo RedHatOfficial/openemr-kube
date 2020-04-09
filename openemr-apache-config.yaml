@@ -64,5 +64,4 @@ data:
     </VirtualHost>
 kind: ConfigMap
 metadata:
-  creationTimestamp: null
   name: openemr-apache-config
