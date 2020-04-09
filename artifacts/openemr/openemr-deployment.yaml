@@ -59,7 +59,7 @@ spec:
           value: "redis"
         - name: SWARM_MODE
           value: "yes"
-        image: "quay.io/bostrt/openemr-test"
+        image: "quay.io/openemr/openemr"
         imagePullPolicy: ""
         name: openemr
         ports:
