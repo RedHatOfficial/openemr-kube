@@ -16,6 +16,7 @@ kubectl apply -f artifacts/
 
 ### Testing Cluster
 A public OpenShift 4.3 cluster was created to facilitate testing:
-https://console-openshift-console.apps.cluster1.naps-oct.redhatgov.io
+
+https://console-openshift-console.apps.openemr-dev-1.naps-oct.redhatgov.io
 
 Contact @isimluk for access.
