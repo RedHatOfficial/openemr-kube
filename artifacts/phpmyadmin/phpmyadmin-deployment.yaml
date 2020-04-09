@@ -27,7 +27,7 @@ spec:
       - env:
         - name: PMA_HOSTS
           value: mariadb
-        image: phpmyadmin/phpmyadmin
+        image: phpmyadmin/phpmyadmin:fpm
         imagePullPolicy: ""
         name: phpmyadmin
         ports:
