@@ -35,12 +35,14 @@ data:
 ### Deployment in OpenShift (v3 or v4)
 
 ```
+oc apply -f artifacts/phpmyadmin/
 oc apply -f artifacts/openemr/
 ```
 
 ### Deployment in vanilla kubernetes
 
 ```
+kubectl apply -f artifacts/phpmyadmin/
 kubectl apply -f artifacts/openemr/
 ```
 
