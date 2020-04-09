@@ -81,7 +81,7 @@ spec:
           name: volume-apache-ssl-conf
           subPath: ssl.conf
       restartPolicy: Always
-      serviceAccountName: ""
+      serviceAccountName: openemr
       volumes:
       - name: websitevolume
         persistentVolumeClaim:
