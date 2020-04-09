@@ -51,4 +51,4 @@ A public OpenShift 4.3 cluster was created to facilitate testing:
 
 https://console-openshift-console.apps.openemr-dev-1.naps-oct.redhatgov.io
 
-Contact @isimluk for access.
+For access please read the `Development cluster access` in this [Google doc](https://docs.google.com/document/d/1KLd8KCHbTaf-MxbYb5QHZYT0qrpsx8NgNXAbG0J7jWA) or contact @isimluk.
