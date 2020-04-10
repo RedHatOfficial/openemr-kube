@@ -137,12 +137,3 @@ fi
 
 # ensure the auto_configure.php script has been removed
 rm -f auto_configure.php
-
-if [ "$REDIS_SERVER" != "" ] &&
-   [ ! -f /etc/php-redis-configured ]; then
-    # Variable for $REDIS_SERVER is usually going to be something like 'redis'
-    sed -i "s@session.save_handler = files@session.save_handler = redis@" /etc/php7/php.ini
-    sed -i "s@;session.save_path = \"/tmp\"@session.save_path = \"tcp://$REDIS_SERVER:6379\"@" /etc/php7/php.ini
-    # Ensure only configure this one time
-    touch /etc/php-redis-configured
-fi
