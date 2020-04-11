@@ -4,7 +4,10 @@ RUN dnf update -y
 RUN dnf install -y @php php-mysqlnd php-soap php-gd php-pecl-zip php-ldap wget git npm
 RUN wget https://getcomposer.org/installer -O composer-installer.php
 RUN wget https://raw.githubusercontent.com/openemr/openemr-devops/master/docker/openemr/5.0.2/php.ini
+RUN wget https://raw.githubusercontent.com/openemr/openemr-devops/master/docker/openemr/5.0.2/autoconfig.sh
+RUN wget https://raw.githubusercontent.com/openemr/openemr-devops/master/docker/openemr/5.0.2/auto_configure.php
 RUN php composer-installer.php --filename=composer --install-dir=/usr/local/bin
+
 
 RUN git clone https://github.com/openemr/openemr.git --branch rel-502 --depth 1
 
@@ -22,19 +25,22 @@ RUN composer global require phing/phing \
     && rm -fr node_modules
 
 FROM registry.access.redhat.com/ubi8
-RUN dnf install -y @php php-mysqlnd php-soap php-gd httpd mod_ssl && dnf clean all
+RUN dnf install -y @php php php-mysqlnd php-soap php-gd httpd mod_ssl openssl && dnf clean all
 COPY --from=builder /php.ini /etc/php.ini
 COPY --from=builder /openemr /var/www/localhost/htdocs/openemr
 
 COPY openemr.conf /etc/httpd/conf.d/openemr.conf
 COPY ssl.conf /etc/httpd/conf.d/ssl.conf
-COPY run_openemr.sh autoconfig.sh auto_configure.php /var/www/localhost/htdocs/openemr/
+COPY run_openemr.sh /var/www/localhost/htdocs/openemr/
+COPY --from=builder autoconfig.sh auto_configure.php /var/www/localhost/htdocs/openemr/
+RUN echo "LoadModule mpm_prefork_module modules/mod_mpm_prefork.so" > /etc/httpd/conf.modules.d/00-mpm.conf
 
 # left-over from upstream, do we really need this?
 ENV APACHE_LOG_DIR=/var/log/httpd
 
 RUN chmod 0777 /run/httpd
 RUN chmod 0770 /var/log/httpd
+RUN chown -R apache /var/www/localhost/htdocs/openemr/
 
 RUN sed -i 's/^Listen 80/Listen 8080/' /etc/httpd/conf/httpd.conf
 
