@@ -1,12 +1,6 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  annotations:
-    kompose.cmd: kompose convert
-    kompose.version: 1.21.0 ()
-  creationTimestamp: null
-  labels:
-    io.kompose.service: openemr
   name: openemr
 spec:
   replicas: 5
@@ -17,10 +11,6 @@ spec:
     type: Recreate
   template:
     metadata:
-      annotations:
-        kompose.cmd: kompose convert
-        kompose.version: 1.21.0 ()
-      creationTimestamp: null
       labels:
         io.kompose.service: openemr
     spec:
@@ -59,12 +49,12 @@ spec:
           value: "redis"
         - name: SWARM_MODE
           value: "yes"
-          image: "quay.io/openemr/openemr:latest"
+        image: "quay.io/openemr/openemr:latest"
         imagePullPolicy: ""
         name: openemr
         ports:
-        - containerPort: 80
-        - containerPort: 443
+        - containerPort: 8080
+        - containerPort: 8443
         resources: {}
         volumeMounts:
         - mountPath: /var/www/localhost/htdocs/openemr/sites
@@ -87,5 +77,3 @@ spec:
         secret:
           defaultMode: 420
           secretName: openemr-certs
-status: {}
-
