@@ -39,6 +39,11 @@ oc apply -f artifacts/phpmyadmin/
 oc apply -f artifacts/openemr/
 ```
 
+For the first boot of the application certain initialization procedures (populating database and disk volumes) are required.
+```
+oc apply -f artifacts/openemr-firstboot
+```
+
 ### Deployment in vanilla kubernetes
 
 ```

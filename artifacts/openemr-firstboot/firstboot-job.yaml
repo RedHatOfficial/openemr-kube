@@ -1,0 +1,65 @@
+kind: Job
+apiVersion: batch/v1
+metadata:
+  name: openemr-firstboot
+  labels:
+    job-name: openemr-firstboot
+spec:
+  parallelism: 1
+  completions: 1
+  backoffLimit: 6
+  template:
+    spec:
+      containers:
+        - name: openemr-firstboot
+          image: 'quay.io/slukasik/openemr-test:app-initialization'
+          imagePullPolicy: Always
+          command:
+            - bash
+            - '-c'
+            - cd /var/www/localhost/htdocs/openemr/; ./first_start.sh
+          env:
+          - name: MYSQL_HOST
+            valueFrom:
+              secretKeyRef:
+                name: mysql
+                key: host
+          - name: MYSQL_DATABASE
+            valueFrom:
+              secretKeyRef:
+                name: mysql
+                key: name
+          - name: MYSQL_USER
+            valueFrom:
+              secretKeyRef:
+                name: mysql
+                key: username
+          - name: MYSQL_PASS
+            valueFrom:
+              secretKeyRef:
+                name: mysql
+                key: password
+          - name: MYSQL_ROOT_PASS
+            valueFrom:
+              secretKeyRef:
+                name: mysql
+                key: root_password
+          - name: OE_PASS
+            value: "pass"
+          - name: OE_USER
+            value: "admin"
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /var/www/localhost/htdocs/openemr/sites/
+            name: websitevolume
+      volumes:
+      - name: websitevolume
+        persistentVolumeClaim:
+          claimName: websitevolume
+      restartPolicy: Never
+      terminationGracePeriodSeconds: 30
+      dnsPolicy: ClusterFirst
+      securityContext: {}
+      schedulerName: default-scheduler
