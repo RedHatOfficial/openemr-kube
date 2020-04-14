@@ -48,7 +48,7 @@ spec:
         - name: REDIS_SERVER
           value: "redis"
         - name: SWARM_MODE
-          value: "yes"
+          value: "no"
         image: "quay.io/openemr/openemr:latest"
         imagePullPolicy: ""
         name: openemr
