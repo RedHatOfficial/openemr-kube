@@ -2,22 +2,17 @@ apiVersion: v1
 kind: Service
 metadata:
   annotations:
-    kompose.cmd: kompose convert
-    kompose.version: 1.7.0 (HEAD)
     service.alpha.openshift.io/serving-cert-secret-name: openemr-certs
-  creationTimestamp: null
   labels:
     io.kompose.service: openemr
   name: openemr
 spec:
   ports:
-  - name: "80"
-    port: 80
-    targetPort: 80
-  - name: "443"
-    port: 443
-    targetPort: 443
+  - name: "8080"
+    port: 8080
+    targetPort: 8080
+  - name: "8443"
+    port: 8443
+    targetPort: 8443
   selector:
     io.kompose.service: openemr
-status:
-  loadBalancer: {}
