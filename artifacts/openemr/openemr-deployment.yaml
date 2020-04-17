@@ -45,12 +45,8 @@ spec:
           value: "pass"
         - name: OE_USER
           value: "admin"
-        - name: REDIS_SERVER
-          value: "redis"
-        - name: SWARM_MODE
-          value: "no"
-        image: "quay.io/openemr/openemr:latest"
-        imagePullPolicy: ""
+        image: "quay.io/slukasik/openemr-test:app-initialization"
+        imagePullPolicy: Always
         name: openemr
         ports:
         - containerPort: 8080
