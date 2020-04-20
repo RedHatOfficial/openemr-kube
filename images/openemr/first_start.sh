@@ -48,8 +48,7 @@ auto_setup() {
 }
 
 
-
-mv /var/www/localhost/htdocs/openemr/sites-seed/* /var/www/localhost/htdocs/openemr/sites
+[ -d /var/www/localhost/htdocs/openemr/sites/default/ ] || cp -a /var/www/localhost/htdocs/openemr/sites-seed/* /var/www/localhost/htdocs/openemr/sites
 
 echo "Running quick setup!"
 
