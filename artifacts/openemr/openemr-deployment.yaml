@@ -45,7 +45,7 @@ spec:
           value: "pass"
         - name: OE_USER
           value: "admin"
-        image: "quay.io/slukasik/openemr-test:app-initialization"
+        image: "quay.io/openemr/openemr:latest"
         imagePullPolicy: Always
         name: openemr
         ports:
