@@ -4,7 +4,7 @@
 
 ## Deployment
 
-### Preequisites
+### Prerequisites
 
 In order to use OpenEMR, a MySQL database is required.
 For development purposes, you can install a MariaDB database in the cluster:
