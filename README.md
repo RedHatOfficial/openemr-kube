@@ -84,7 +84,7 @@ OpenEMR configured.
 Setup Complete!
 ```
 
-The Docker Compose configuration provides an easy way to work alternate OpenEMR forks and releases. To rebuild the application locally, simply update the `image` and `build` configurations.
+The Docker Compose configuration provides an easy way to work with alternate OpenEMR forks and releases. To rebuild the application locally, simply update the `image` and `build` configurations.
 
 ```
 image: <your repository name>/openemr:<your tag>
