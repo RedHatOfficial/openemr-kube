@@ -23,7 +23,7 @@ services:
         ENABLE_SSL: "false"
     ports:
     - 8080:8080
-    - 4443:443
+    - 8443:8443
     volumes:
     - logvolume01:/var/log
     - sitevolume:/var/www/localhost/htdocs/openemr/sites
