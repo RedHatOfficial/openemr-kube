@@ -3,7 +3,7 @@
 # The purpose of this project is to make it possible to quickly deploy a fully functional electronic health records system (EHR) as a Kubernetes resource. While these instructions should work in any current Kubernetes environment. The target Kubernetes platform for these instructions is OpenShift.com
 
 ### Perequisites
-You must have git installed. Please sign up a free OpenShfit account at [manage.openshift.com](https://manage.openshift.com). You are also encouraged to fork this project on Github so that you may make custom edits.
+You must have [git](https://git-scm.com/downloads) installed. Please sign up a free OpenShfit account at [manage.openshift.com](https://manage.openshift.com). You are also encouraged to fork this project on Github so that you may make custom edits.
 
 ### Steps
 1. From the OpenShift portal, download the Command Line Tools from the Help (? button) menu. Download the oc command line client for your platform. e.g., Linux, macOS, Windows. The oc tool is available through Homebrew as well: brew install openshift-cli
