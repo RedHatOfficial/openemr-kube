@@ -33,4 +33,4 @@ You must have git installed. Please sign up a free OpenShfit account at manage.o
 # Auto scale the app
 ``` oc autoscale deploy openemr --min=2 --max=10 ```
 
-``` oc autoscale deployment.apps/openemr --max=5 --cpu-percent=80 ``
+``` oc autoscale deployment.apps/openemr --max=5 --cpu-percent=80 ```
