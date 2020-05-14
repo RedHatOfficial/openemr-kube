@@ -12,7 +12,7 @@ You must have git installed. Please sign up a free OpenShfit account at manage.o
 
 3. From the command line, type in a new for your project. ``` oc new-project openemr ```
 
-4. Clone this repository to your clone system. e.g., ``` git clone https://github.com/RedHatOfficial/openemr-kube.git ``` then cd into the directory.
+4. Clone this repository to your local system. e.g., ``` git clone https://github.com/RedHatOfficial/openemr-kube.git ```, then cd into the directory.
 
 5. Run: ``` oc apply -f artifacts/mysql/ ```
 
@@ -22,18 +22,15 @@ You must have git installed. Please sign up a free OpenShfit account at manage.o
 
 8. Finally, run: ``` oc apply -f artifacts/openemr-firstboot ```
 
-``` oc get svc ```
+9. List names of services. ``` oc get svc ```
 
-``` oc expose svc/openemr --hostname=emr2.apps.cloudapps.northwestern.edu ```
+10. Create a route. ``` oc expose svc/openemr --hostname=emr2.apps.cloudapps.northwestern.edu ```
 
-Set cookie: https://docs.openshift.com/container-platform/3.11/dev_guide/routes.html
+11. Set cookie:  ``` oc get routes ```  https://docs.openshift.com/container-platform/3.11/dev_guide/routes.html then set the cookie e.g., ``` oc annotate route openemr router.openshift.io/cookie_name=my_cookie ```
 
-# Get route name
-``` oc get routes ```
-
-e.g., oc annotate route openemr router.openshift.io/cookie_name=my_cookie
+#### Other tips
 
 # Auto scale the app
-oc autoscale deploy openemr --min=2 --max=10
+``` oc autoscale deploy openemr --min=2 --max=10 ```
 
-oc autoscale deployment.apps/openemr --max=5 --cpu-percent=80
+``` oc autoscale deployment.apps/openemr --max=5 --cpu-percent=80 ``
