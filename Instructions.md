@@ -30,7 +30,7 @@ You must have git installed. Please sign up a free OpenShfit account at [manage.
 
 ## Other tips and recommendations
 
-### Add SSL support through Let's Encrypt
+### Secure your OpenEMR instance with SSL support through Let's Encrypt
 
 [https://github.com/tnozicka/openshift-acme](https://github.com/tnozicka/openshift-acme)
 
