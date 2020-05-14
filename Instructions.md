@@ -28,7 +28,7 @@ You must have git installed. Please sign up a free OpenShfit account at [manage.
 
 11. Set cookie:  ``` oc get routes ``` then set the cookie e.g., ``` oc annotate route openemr router.openshift.io/cookie_name=my_cookie ``` Setting a the cookie is important if you have multipule instances of OpenEMR containers running https://docs.openshift.com/container-platform/3.11/dev_guide/routes.html
 
-## Other tips
+## Other tips and recommendations
 
 ### Add SSL support through Let's Encrypt
 
