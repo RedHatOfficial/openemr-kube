@@ -28,9 +28,9 @@ You must have git installed. Please sign up a free OpenShfit account at manage.o
 
 11. Set cookie:  ``` oc get routes ``` then set the cookie e.g., ``` oc annotate route openemr router.openshift.io/cookie_name=my_cookie ``` Setting a the cookie is important if you have multipule instances or OpenEMR containers running https://docs.openshift.com/container-platform/3.11/dev_guide/routes.html
 
-#### Other tips
+## Other tips
 
-# Set up autoscaling
+### Set up autoscaling
 ``` oc autoscale deploy openemr --min=2 --max=10 ```
 
 ``` oc autoscale deployment.apps/openemr --max=5 --cpu-percent=80 ```
