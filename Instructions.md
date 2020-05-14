@@ -32,7 +32,7 @@ You must have git installed. Please sign up a free OpenShfit account at [manage.
 
 ### Add SSL support through Let's Encrypt
 
-[https://github.com/tnozicka/openshift-acme]
+[https://github.com/tnozicka/openshift-acme](https://github.com/tnozicka/openshift-acme)
 
 
 ### Set up autoscaling
