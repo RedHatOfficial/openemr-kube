@@ -1,4 +1,4 @@
-# Openemr-kube
+# OpenEMR-Kube
 
 # The purpose of this project is to make it possible to quickly deploy a fully functional electronic health records system (EHR) as a Kubernetes resource. While these instructions should work in any current Kubernetes environment. The target Kubernetes platform for these instructions is OpenShift.com
 
