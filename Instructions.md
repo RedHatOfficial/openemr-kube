@@ -40,7 +40,7 @@ You must have [git](https://git-scm.com/downloads) installed. Please sign up a f
 
 ``oc annotate route openemr kubernetes.io/tls-acme=true``
 
-### You must also add the LE secret to your OpenEMR container
+### You must also add the Let's Encrypt/OpenShift-Acme secret to your OpenEMR container
 
 ``oc get secrets``
 
