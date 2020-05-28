@@ -6,7 +6,7 @@
 You must have [git](https://git-scm.com/downloads) installed. Please sign up a free OpenShfit account at [manage.openshift.com](https://manage.openshift.com). You are also encouraged to fork this project on Github so that you may make custom edits.
 
 ### Steps
-1. From the OpenShift portal, download the Command Line Tools from the Help (? button) menu. Download the oc command line client for your platform. e.g., Linux, macOS, Windows. The oc tool is available through [Homebrew](https://brew.sh) as well: ``brew install openshift-cli``
+1. From the OpenShift portal, download the Command Line Tools from the Help (? button) menu. Download the ``oc`` command line client for your platform. e.g., Linux, macOS, Windows. The ``oc`` tool is available through [Homebrew](https://brew.sh) as well: ``brew install openshift-cli``
 
 2. In the OpenShift portal click your name, then click "Copy the Login Command", then paste that command into your command line. e.g., ``` oc login --token=VAw1hSirRaUmLKuGgGsZe0_mbKEtGdia5NXokYfTxc4 --server=https://api.us-east-1.starter.openshift-online.com:6443 ```
 
