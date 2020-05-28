@@ -28,8 +28,6 @@ You must have [git](https://git-scm.com/downloads) installed. Please sign up a f
 
 11. Set cookie:  ``` oc get routes ``` then set the cookie e.g., ``` oc annotate route openemr router.openshift.io/cookie_name=my_cookie ``` Setting a the cookie is important if you have multipule instances of OpenEMR containers running https://docs.openshift.com/container-platform/3.11/dev_guide/routes.html
 
-Other tips and recommendations
-
 ## Other tips and recommendations
 
 ### Secure your OpenEMR instance with SSL support through Let's Encrypt
@@ -42,11 +40,14 @@ Other tips and recommendations
 
 ``oc annotate route openemr kubernetes.io/tls-acme=true``
 
-``oc annotate route openemr acme.openshift.io/secret-name=letsencrypt-live``
+You must also add the LE secret to your OpenEMR container
 
+``oc get secrets``
+
+``oc annotate route openemr acme.openshift.io/secret-name=letsencrypt-live``
 
 ### Consider setting up autoscaling, which is one of the great benefits of deploying to OpenShift
 
-oc autoscale deploy openemr --min=2 --max=10
+``oc autoscale deploy openemr --min=2 --max=10``
 
-oc autoscale deployment.apps/openemr --max=5 --cpu-percent=80
+``oc autoscale deployment.apps/openemr --max=5 --cpu-percent=80``
