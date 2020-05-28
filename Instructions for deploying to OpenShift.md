@@ -42,8 +42,6 @@ You must have [git](https://git-scm.com/downloads) installed. Please sign up a f
 
 ### You must also add the Let's Encrypt/OpenShift-Acme secret to your OpenEMR container
 
-``oc get secrets``
-
 ``oc annotate route openemr acme.openshift.io/secret-name=letsencrypt-live``
 
 ### Consider setting up autoscaling, which is one of the great benefits of deploying to OpenShift
