@@ -24,7 +24,7 @@ You must have [git](https://git-scm.com/downloads) installed. Please sign up a f
 
 9. List names of services. ``` oc get svc ```
 
-10. Create a route. e.g., ``` oc expose svc/openemr --hostname=ehr.youdomain.com ```
+10. Create a route. e.g., ``` oc expose svc/openemr --hostname=emr.youdomain.com ```
 
 11. Set cookie:  ``` oc get routes ``` then set the cookie e.g., ``` oc annotate route openemr router.openshift.io/cookie_name=my_cookie ``` Setting a the cookie is important if you have multipule instances of OpenEMR containers running https://docs.openshift.com/container-platform/3.11/dev_guide/routes.html
 
