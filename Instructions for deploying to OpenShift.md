@@ -1,6 +1,6 @@
 # OpenEMR-Kube
 
-# The purpose of this project is to make it possible to quickly deploy a fully functional, ONC certified electronic health records system (EHR) as a Kubernetes resource. While these instructions should work in any current Kubernetes environment, the target Kubernetes platform for these instructions is [OpenShift.com](https://openshift.com)
+# The purpose of this project is to make it possible to quickly deploy a fully functional, ONC certified electronic health records system (EHR) as a Kubernetes resource. While these instructions should work in any current Kubernetes environment, the target Kubernetes platform for these instructions is [OpenShift](https://openshift.com). ***These instructions have been tested against OpenShift 3.11, but not 4.x.***
 
 ### Perequisites
 You must have [git](https://git-scm.com/downloads) installed. Please sign up a free OpenShfit account at [manage.openshift.com](https://manage.openshift.com). You are also encouraged to fork this project on Github so that you may make custom edits.
