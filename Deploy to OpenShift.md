@@ -34,6 +34,10 @@ You must have [git](https://git-scm.com/downloads) installed. Please sign up a f
 
 [https://github.com/tnozicka/openshift-acme](https://github.com/tnozicka/openshift-acme)
 
+``git clone https://github.com/tnozicka/openshift-acme.git``
+
+``cd openshift-acme/``
+
 ``oc apply -fhttps://raw.githubusercontent.com/tnozicka/openshift-acme/master/deploy/single-namespace/{role,serviceaccount,issuer-letsencrypt-live,deployment}.yaml``
 
 ``oc create rolebinding openshift-acme --role=openshift-acme --serviceaccount="$( oc project -q ):openshift-acme" --dry-run -o yaml | oc apply -f -``
