@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: openemr
 spec:
-  replicas: 5
+  replicas: 2
   selector:
     matchLabels:
       io.kompose.service: openemr
