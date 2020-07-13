@@ -2,7 +2,7 @@
 # MYSQL_HOST and MYSQL_ROOT_PASS are required for openemr
 # MYSQL_USER, MYSQL_PASS, OE_USER, MYSQL_PASS are optional for openemr and
 #   if not provided, then default to openemr, openemr, admin, and pass respectively.
-version: '3'
+version: '3.7'
 services:
   mysql:
     restart: always
@@ -14,10 +14,16 @@ services:
       MYSQL_ROOT_PASSWORD: root
   openemr:
     restart: always
-    image: openemr/openemr:5.0.3
+    image: quay.io/openemr/openemr:latest
+    build:
+      context: images/openemr
+      args:
+        OPENEMR_REPO_URL: https://github.com/openemr/openemr.git
+        OPENEMR_BRANCH: master
+        ENABLE_SSL: "false"
     ports:
-    - 80:80
-    - 443:443
+    - 8080:8080
+    - 8443:8443
     volumes:
     - logvolume01:/var/log
     - sitevolume:/var/www/localhost/htdocs/openemr/sites
