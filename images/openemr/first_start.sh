@@ -1,6 +1,24 @@
 #!/bin/bash
 set -x -e -o pipefail
 
+#===============================================================================
+RED="\e[0;31m"
+GREEN="\e[0;32m"
+YELLOW="\e[0;33m"
+CYAN="\e[0;36m"
+BLUE="\e[0;34m"
+BACK="\e[0m"
+
+#===============================================================================
+
+pass() {
+    echo -e "${GREEN} PASS ${BACK}:" "$@" >&2
+}
+
+fatal() {
+    echo -e "${RED} FAIL ${BACK}:" "$@" >&2
+}
+
 
 auto_setup() {
     CONFIGURATION="server=${MYSQL_HOST} rootpass=${MYSQL_ROOT_PASS} loginhost=%"
@@ -37,7 +55,7 @@ auto_setup() {
     echo "OpenEMR configured."
     CONFIG=$(php -r "require_once('/var/www/localhost/htdocs/openemr/sites/default/sqlconf.php'); echo \$config;")
     if [ "$CONFIG" == "0" ]; then
-        echo "Error in auto-config. Configuration failed."
+        fatal "Error in auto-config. Configuration failed."
         exit 2
     fi
 
@@ -50,13 +68,13 @@ auto_setup() {
 
 [ -d /var/www/localhost/htdocs/openemr/sites/default/ ] || cp -a /var/www/localhost/htdocs/openemr/sites-seed/* /var/www/localhost/htdocs/openemr/sites
 
-echo "Running quick setup!"
+echo "-------------------------- Running quick setup ---------------------------"
 
 while ! auto_setup; do
-    echo "Couldn't set up. Any of these reasons could be what's wrong:"
-    echo " - You didn't spin up a MySQL container or connect your OpenEMR container to a mysql instance"
-    echo " - MySQL is still starting up and wasn't ready for connection yet"
-    echo " - The Mysql credentials were incorrect"
+    fatal "Couldn't set up. Any of these reasons could be what's wrong:"
+    fatal " - You didn't spin up a MySQL container or connect your OpenEMR container to a mysql instance"
+    fatal " - MySQL is still starting up and wasn't ready for connection yet"
+    fatal " - The Mysql credentials were incorrect"
     sleep 1;
 done
-echo "Setup Complete!"
+echo "-------------------------- Setup Complete -------------------------------"
